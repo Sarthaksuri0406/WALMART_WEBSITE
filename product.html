@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="pageTitle">WALMART - Online Shopping Store</title>
+    <link rel="stylesheet" href="product_style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <a href="index.html" class="logo">
+                <div class="logo-icon"><img src="Images/logo.png" alt="" style="width: 30px; height: auto;"></div>
+                WALMART
+            </a>
+            <div class="search-bar">
+                <input type="text" class="search-box" placeholder="Search for products, brands and more" id="searchInput">
+                <button class="search-btn" onclick="performSearch()">🔍</button>
+            </div>
+            <div class="header-actions">
+                <div class="nav-item">
+                  <a href="#" class="nav-btn">
+                    <img src="Images/profile-52e0dc.svg" alt="Profile"> Login
+                  </a>
+                  <div class="popup-tooltip">Sign in to your account</div>
+                </div>
+              
+                <div class="nav-item">
+                  <a href="#" class="nav-btn">
+                    <img src="Images/Store-9eeae2.svg" alt="Store"> Seller
+                  </a>
+                  <div class="popup-tooltip">Become a Seller</div>
+                </div>
+              
+                <div class="nav-btn-wrapper">
+                    <a href="#" class="nav-btn" onclick="toggleCart()">
+                        <img src="Images/header_cart-eed150.svg" alt="Cart"> Cart
+                        <span class="cart-badge" id="cartBadge">0</span>
+                    </a>
+                    <div class="popup-tooltip">View your shopping cart</div>
+                </div>
+                  
+              
+                <div class="nav-item">
+                  <a href="#" class="nav-btn">
+                    More <img src="Images/header_3verticalDots-ea7819.svg" alt="More">
+                  </a>
+                  <div class="popup-tooltip">More options</div>
+                </div>
+              </div>
+        </div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <div class="breadcrumb-content" id="breadcrumb">
+            <a href="#">Home</a> › Product
+        </div>
+    </div>
+
+    <!-- Product Section -->
+     <!-- Cart Overlay -->
+    <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>Shopping Cart</h3>
+            <button class="cart-close" onclick="toggleCart()">×</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <!-- Cart items will be populated by JavaScript -->
+        </div>
+        <div class="cart-total" id="cartTotal">
+            <div class="total-row">
+                <span>Subtotal:</span>
+                <span id="subtotal">₹0</span>
+            </div>
+            <div class="total-row">
+                <span>Shipping:</span>
+                <span>Free</span>
+            </div>
+            <div class="total-row" style="font-weight: bold; font-size: 18px;">
+                <span>Total:</span>
+                <span id="total">₹0</span>
+            </div>
+            <button class="checkout-btn" onclick="checkout()">Proceed to Checkout</button>
+        </div>
+    </div>
+    
+    <div class="product-container">
+        <div class="product-layout">
+            <!-- Image Gallery -->
+            <div class="image-gallery">
+                <div class="thumbnail-list" id="thumbnailList">
+                    <!-- Thumbnails will be populated by JavaScript -->
+                </div>
+                <div class="main-image">
+                    <img id="mainImage" src="" alt="Main product image">
+                    <button class="zoom-icon">🔍</button>
+                </div>
+            </div>
+
+            <!-- Product Details -->
+            <div class="product-details">
+                <h1 id="productTitle">Select a product to view details</h1>
+                
+                <div class="rating-section" id="ratingSection">
+                    <div class="rating" id="rating">
+                        0.0 ⭐
+                    </div>
+                    <div class="rating-text" id="ratingText">No ratings yet</div>
+                    <div style="color: #388e3c; font-size: 12px;" id="assuredBadge">✓ Assured</div>
+                </div>
+
+                <div class="price-section">
+                    <div class="special-price" id="specialPriceLabel">Special price</div>
+                    <div>
+                        <span class="current-price" id="currentPrice">₹0</span>
+                        <span class="original-price" id="originalPrice">₹0</span>
+                        <span class="discount" id="discount">0% off</span>
+                    </div>
+                    <div class="protect-fee" id="protectFee">+ ₹9 Protect Promise Fee <a href="#">Learn more</a></div>
+                </div>
+
+                <div class="delivery-section" id="deliverySection">
+                    <div class="delivery-info">
+                        <span>🚚</span>
+                        <span id="deliveryText">Delivery information</span>
+                    </div>
+                    <div class="delivery-fast" id="urgencyText"></div>
+                </div>
+
+                <div class="offers-section" id="offersSection">
+                    <h3>Available offers</h3>
+                    <div id="offersList">
+                        <!-- Offers will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <div class="warranty-section" id="warrantySection">
+                    <div class="warranty-icon" id="warrantyIcon">W</div>
+                    <div class="warranty-text">
+                        <div id="warrantyText"><strong>Warranty information</strong></div>
+                    </div>
+                    <a href="#" class="warranty-link">Know More</a>
+                </div>
+
+                <div class="color-section" id="colorSection">
+                    <h3>Color</h3>
+                    <div class="color-options" id="colorOptions">
+                        <!-- Color options will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-cart">Add to Cart</button>
+                    <button class="btn btn-buy">⚡ Buy Now</button>
+                  </div>                                   
+            </div>
+        </div>
+    </div>
+    <script>
+        // Paste the updateActionButtons function here
+        function updateActionButtons(productId) {
+          const addToCartBtn = document.querySelector('.action-buttons .btn-cart');
+          const buyNowBtn = document.querySelector('.action-buttons .btn-buy');
+      
+          if (addToCartBtn) {
+            addToCartBtn.setAttribute('onclick', `addToCart(${productId})`);
+          }
+          if (buyNowBtn) {
+            buyNowBtn.setAttribute('onclick', `buyNow(${productId})`);
+          }
+        }
+      
+        // Example: after loading product data, call the function with actual product ID
+        // Replace `1` with the real product ID variable from your code
+        updateActionButtons(product.id);
+      </script>
+      <!-- Chatbot UI -->
+<div class="chatbot-toggle" id="chatbotToggle">💬</div>
+
+<div class="chatbot-window hidden" id="chatbotWindow">
+  <div class="chatbot-header">Ask Walmart 🤖</div>
+  <div class="chatbot-body" id="chatbotMessages"></div>
+  <input type="text" id="chatInput" placeholder="Ask something..." />
+</div>
+
+<script src="product_script.js"></script>
+</body>
+</html>
+
+    <script src="product_script.js"></script>
+</body>
+</html>

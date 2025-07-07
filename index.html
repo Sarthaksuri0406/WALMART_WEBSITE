@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WALMART - Online Shopping Store</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="Images/logo-removebg-preview.png" type="image/x-icon">
+</head>
+<body>
+
+    <!-- <div id="loader">z
+            <svg class="cart" role="img" aria-label="Shopping cart line animation" viewBox="0 0 128 128" width="128px" height="128px" xmlns="http://www.w3.org/2000/svg">
+                <g fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="8">
+                    <g class="cart__track" stroke="hsla(0,10%,10%,0.1)">
+                        <polyline points="4,4 21,4 26,22 124,22 112,64 35,64 39,80 106,80" />
+                        <circle cx="43" cy="111" r="13" />
+                        <circle cx="102" cy="111" r="13" />
+                    </g>
+                    <g class="cart__lines" stroke="currentColor">
+                        <polyline class="cart__top" points="4,4 21,4 26,22 124,22 112,64 35,64 39,80 106,80" stroke-dasharray="338 338" stroke-dashoffset="-338" />
+                        <g class="cart__wheel1" transform="rotate(-90,43,111)">
+                            <circle class="cart__wheel-stroke" cx="43" cy="111" r="13" stroke-dasharray="81.68 81.68" stroke-dashoffset="81.68" />
+                        </g>
+                        <g class="cart__wheel2" transform="rotate(90,102,111)">
+                            <circle class="cart__wheel-stroke" cx="102" cy="111" r="13" stroke-dasharray="81.68 81.68" stroke-dashoffset="81.68" />
+                        </g>
+                    </g>
+                </g>
+            </svg>
+    </div> -->
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <a href="#" class="logo">
+                <div class="logo-icon"><img src="Images/logo.png" alt="" style="width: 30px; height: auto;"></div>
+                WALMART
+            </a>
+
+    <div class="search-container">
+  <input
+    type="text"
+    class="search-box"
+    id="searchInput"
+    placeholder="Search for products, brands and more"
+    onkeyup="handleSearch(event)"
+  />
+  <button class="search-btn" onclick="performSearch()">🔍</button>
+</div>
+
+            
+
+            <div class="nav-buttons">
+                <div class="nav-btn-wrapper">
+                    <a href="#" class="nav-btn">
+                        <img src="Images/profile-52e0dc.svg" alt="Profile"> Login
+                    </a>
+                    <div class="popup-tooltip">Sign in to your account</div>
+                </div>
+    
+                <div class="nav-btn-wrapper">
+                    <a href="#" class="nav-btn">
+                        <img src="Images/Store-9eeae2.svg" alt="Store"> Seller
+                    </a>
+                    <div class="popup-tooltip">Become a Seller</div>
+                </div>
+    
+                <div class="nav-btn-wrapper">
+                    <a href="#" class="nav-btn" onclick="toggleCart()">
+                        <img src="Images/header_cart-eed150.svg" alt="Cart"> Cart
+                        <span class="cart-badge" id="cartBadge">0</span>
+                    </a>
+                    <div class="popup-tooltip">View your shopping cart</div>
+                </div>
+    
+                <div class="nav-btn-wrapper">
+                    <a href="#" class="nav-btn"><img src="Images/header_3verticalDots-ea7819.svg" alt="More">
+                    </a>
+                    <div class="popup-tooltip">More options</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <div class="carousel-container">
+        <div class="carousel-wrapper">
+            <div class="carousel-slides" id="carouselSlides">
+
+                <div class="slide slide-0">
+                    <div class="slide-content">
+                        <h1>Welcome to WALMART</h1>
+                        <p>Discover amazing products at unbeatable prices. Shop from millions of products across categories.<br>
+                            upto 50% off
+                        </p>
+                        <br>
+                        <a href="#products" class="cta-btn">Start Shopping</a>
+                    </div>
+                    <div class="slide-image">
+                        <img src="Images/logo-removebg-preview.png" alt="Walmart">
+                    </div>
+                </div>
+
+                <div class="slide slide-1">
+                    <div class="slide-content">
+                      <div class="slide-title">Up to 11% Off*</div>
+                      <div class="slide-subtitle">iPhone</div>
+                      <div class="slide-description">+ Pick-A-Seat</div>
+                      <button class="slide-btn">Book now</button>
+                    </div>
+                    <div class="slide-image1">
+                        <img src="Images/iphone1-removebg-preview.png" style="width: 100%; max-width: 500px; display: block; margin: 0 auto;" alt="iPhone">                        
+                    </div>
+                  </div>
+                  
+
+                <div class="slide slide-2">
+                    <div class="slide-content">
+                        <div class="slide-title">Flash Sale!</div>
+                        <div class="slide-subtitle">Electronics & Gadgets</div>
+                        <div class="slide-description">Up to 50% off on latest tech</div>
+                        <button class="slide-btn">Shop Now</button>
+                    </div>
+                    <div class="slide-image2">
+                        <img src="Images/air_fryer-removebg-preview.png" style="width: 120%; max-width: 500px; display: block; margin: 0 auto;" alt="iPhone"> 
+                    </div>
+                </div>
+
+                <div class="slide slide-3">
+                    <div class="slide-content">
+                        <div class="slide-title">Summer Collection</div>
+                        <div class="slide-subtitle">Fashion & Lifestyle</div>
+                        <div class="slide-description">Trendy outfits for the season</div>
+                        <button class="slide-btn">Explore</button>
+                    </div>
+                    <div class="slide-image3">
+                        <img src="Images/download-removebg-preview.png" style="width: 110%; max-width: 500px; display: block; margin: -10 auto;" alt="iPhone"> 
+                    </div>
+                </div>
+
+                <div class="slide slide-4">
+                    <div class="slide-content">
+                        <div class="slide-title">Home & Living</div>
+                        <div class="slide-subtitle">Decorate Your Space</div>
+                        <div class="slide-description">Beauty, Home & more</div>
+                        <button class="slide-btn">Browse</button>
+                    </div>
+                    <div class="slide-image4">
+                        <img src="Images/beauty.webp" style="width: 80%; max-width: 500px; display: block; margin: 0 auto;" alt="iPhone"> 
+                    </div>
+                </div>
+            </div>
+
+            <button class="nav-arrow prev" onclick="changeSlide(-1)">‹</button>
+            <button class="nav-arrow next" onclick="changeSlide(1)">›</button>
+
+            <div class="dots-container">
+                <span class="dot active" onclick="currentSlide(1)"></span>
+                <span class="dot" onclick="currentSlide(2)"></span>
+                <span class="dot" onclick="currentSlide(3)"></span>
+                <span class="dot" onclick="currentSlide(4)"></span>
+                <span class="dot" onclick="currentSlide(5)"></span>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Categories -->
+    <section class="categories">
+        <div class="container">
+            <div class="category-grid">
+                <div class="category-card" onclick="filterByCategory('electronics')">
+                    <div class="category-icon"><img src="Images/Screenshot 2025-06-25 at 4.29.21 PM.png" alt="Electronics" style="width: 100px; height: auto;" /></div>
+                    <div class="category-name">Electronics</div>
+                </div>
+                <div class="category-card" onclick="filterByCategory('fashion')">
+                    <div class="category-icon"><img src="Images/fashion.png" alt="Fashion"style="width: 100px; height: auto;"/></div>
+                    <div class="category-name">Fashion</div>
+                </div>
+                <div class="category-card" onclick="filterByCategory('Mobiles')">
+                    <div class="category-icon"><img src="Images/Mobile.webp" alt="Mobiles" style="width: 100px; height: auto;" /></div>
+                    <div class="category-name">Mobiles</div>
+                </div>
+                <div class="category-card" onclick="filterByCategory('Home and Furniture')">
+                    <div class="category-icon"><img src="Images/furniture.png" alt="Home" style="width: 100px; height: auto;" /></div>
+                    <div class="category-name">Home & Furniture</div>
+                </div>
+                <div class="category-card" onclick="filterByCategory('sports')">
+                    <div class="category-icon"><img src="Images/Sport_balls.svg.png" alt="sports" style="width: 100px; height: auto;" /></div>
+                    <div class="category-name">Sports</div>
+                </div>
+                <div class="category-card" onclick="filterByCategory('beauty')">
+                    <div class="category-icon"><img src="Images/beauty.png" alt="Beauty" style="width: 100px; height: auto;" /></div>
+                    <div class="category-name">Beauty,Toy & More</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products -->
+    <section class="products" id="products">
+        <div class="container">
+            <h2 class="section-title">Featured Products</h2>
+            <div class="product-grid" id="productGrid">
+            </div>
+        </div>
+    </section>
+
+    <!-- Cart Overlay -->
+    <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>Shopping Cart</h3>
+            <button class="cart-close" onclick="toggleCart()">×</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <!-- Cart items will be populated by JavaScript -->
+        </div>
+        <div class="cart-total" id="cartTotal">
+            <div class="total-row">
+                <span>Subtotal:</span>
+                <span id="subtotal">₹0</span>
+            </div>
+            <div class="total-row">
+                <span>Shipping:</span>
+                <span>Free</span>
+            </div>
+            <div class="total-row" style="font-weight: bold; font-size: 18px;">
+                <span>Total:</span>
+                <span id="total">₹0</span>
+            </div>
+            <button class="checkout-btn" onclick="checkout()">Proceed to Checkout</button>
+        </div>
+    </div>
+
+<!-- Flipkart-style Footer Start -->
+<footer class="footer">
+    <div class="footer-top">
+      <div class="footer-column">
+        <h3>ABOUT</h3>
+        <ul>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Flipkart Stories</a></li>
+          <li><a href="#">Press</a></li>
+          <li><a href="#">Corporate Information</a></li>
+          <li><a href="#"><br></a></li>
+        </ul>
+        <h3>CONSUMER POLICY</h3>
+        <ul>
+          <li><a href="#">Cancellation & Returns</a></li>
+          <li><a href="#">Terms Of Use</a></li>
+          <li><a href="#">Security</a></li>
+          <li><a href="#">Privacy</a></li>
+          <li><a href="#">Sitemap</a></li>
+          <li><a href="#">Grievance Redressal</a></li>
+          <li><a href="#">EPR Compliance</a></li>
+        </ul>
+      </div>
+  
+      <div class="footer-column">
+        <h3>GROUP COMPANIES</h3>
+        <ul>
+          <li><a href="#">ABC</a></li>
+          <li><a href="#">XYZ</a></li>
+          <li><a href="#">PQR</a></li>
+        </ul>
+      </div>
+  
+      <div class="footer-column">
+        <h3>HELP</h3>
+        <ul>
+          <li><a href="#">Payments</a></li>
+          <li><a href="#">Shipping</a></li>
+          <li><a href="#">Cancellation & Returns</a></li>
+          <li><a href="#">FAQ</a></li>
+        </ul>
+      </div>
+  
+      <div class="footer-column address">
+        <h3>Mail Us:</h3>
+        <p>
+            Walmart Innovations Pvt. Ltd.  <br>
+            Block A, Level 5, Aurora Tech Park,  <br>
+            Hitech Main Road, Sector 8,  <br>
+            Silicon Valley Layout,  <br>
+            New Delhi, 110078,  <br>
+            India  
+        </p>
+        <h3>Social:</h3>
+        <div class="social-icons">
+          <a href="#"><img src="Images/facebook-3-logo-svgrepo-com.svg" alt="Facebook"></a>
+          <a href="#"><img src="Images/twitter-color-svgrepo-com.svg" alt="Twitter"></a>
+          <a href="#"><img src="Images/youtube-color-svgrepo-com.svg" alt="YouTube"></a>
+          <a href="#"><img src="Images/instagram-2016-logo-svgrepo-com.svg" alt="Instagram"></a>
+        </div>
+      </div>
+  
+      <div class="footer-column address">
+        <h3>Registered Office Address:</h3>
+        <p>
+            Walmart Innovations Pvt. Ltd.  <br>
+            Block A, Level 5, Aurora Tech Park,  <br>
+            Hitech Main Road, Sector 8,  <br>
+            Silicon Valley Layout,  <br>
+            New Delhi, 110078,  <br>
+            India  
+        </p>
+      </div>
+    </div>
+  </footer>
+    <script src="script.js"></script>
+
+</body>
+</html>
