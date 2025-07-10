@@ -16,11 +16,52 @@ body {
   right: 20px;
   background: #0071dc;
   color: white;
-  padding: 10px;
+  padding: 16px;            /* increased from 10px */
+  font-size: 24px;          /* increases icon or text size */
   border-radius: 50%;
   cursor: pointer;
   z-index: 999;
+  width: 64px;              /* optional: make it circular */
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
+/* Tooltip Style */
+.chatbot-tooltip {
+  position: absolute;
+  bottom: 80px;
+  right: 0;
+  background: #333;
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 14px;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateY(5px);
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+
+/* Tooltip Arrow */
+.chatbot-tooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  right: 20px;
+  border-width: 6px;
+  border-style: solid;
+  border-color: #333 transparent transparent transparent;
+}
+
+/* Show tooltip on hover */
+.chatbot-toggle:hover .chatbot-tooltip {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 
 .chatbot-window {
   position: fixed;
@@ -38,10 +79,10 @@ body {
 }
 
 .chatbot-header {
-  background: #0071dc;
-  color: white;
+  background: #288be7;
+  color: rgb(233, 247, 32);
   padding: 10px;
-  text-align: center;
+  text-align: top;
   font-weight: bold;
 }
 
@@ -61,6 +102,83 @@ body {
 
 .hidden {
   display: none;
+}
+
+/* login */
+
+.nav-btn-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.nav-btn {
+  background: white;
+  padding: 8px 16px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+  color: black;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-btn:hover + .login-dropdown,
+.login-dropdown:hover {
+  display: block;
+}
+
+.login-dropdown {
+  display: none;
+  position: absolute;
+  top: 110%;
+  right: 0;
+  background: white;
+  border: 1px solid #ccc;
+  width: 250px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  border-radius: 4px;
+}
+
+.login-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 16px;
+  font-size: 14px;
+  border-bottom: 1px solid #eee;
+}
+
+.login-header a {
+  color: #0074ff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.login-menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.login-menu li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.login-menu li:hover {
+  background-color: #f5f5f5;
+}
+
+.login-menu img {
+  width: 20px;
+  height: 20px;
 }
 
 
@@ -89,11 +207,6 @@ body {
     font-weight: bold;
     display: flex;
     align-items: center;
-}
-
-.logo::before {
-    content: "🛒";
-    margin-right: 8px;
 }
 
 .search-bar {

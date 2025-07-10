@@ -7,7 +7,7 @@
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: #ffffff;
-  color: #212121;
+  color: #0d0e01;
 }
 
 .cart__top {
@@ -50,38 +50,223 @@ body {
   }
 }
 
+/* Loader container */
+
+/* Full-screen overlay loader */
 #loader {
-  transition: opacity 0.5s ease;
-  opacity: 1;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgb(16, 0, 0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
 }
 
-body.loaded #loader {
-  opacity: 0;
-  pointer-events: none;
+/* Animation: Cart drawing */
+.cart__top {
+  stroke-dashoffset: 338;
+  stroke-dasharray: 338;
+  stroke: #ffc220;
+  animation: dash 1.5s ease forwards;
+}
+
+.cart__wheel-stroke {
+  stroke-dashoffset: 81.68;
+  stroke-dasharray: 81.68;
+  stroke: #ffc220;
+  animation: wheel 1.5s ease forwards;
+}
+
+.cart {
+	display: block;
+	margin: 0 auto 1.5em auto;
+	width: 20%; /* Adjust width to a percentage for responsiveness */
+	max-width: 200px; /* Set a maximum width to prevent excessive scaling */
+	height: auto; 
+}
+
+.cart__lines,
+.cart__top,
+.cart__wheel1,
+.cart__wheel2,
+.cart__wheel-stroke {
+	animation: cartLines 2s ease-in-out infinite;
+}
+
+.cart__lines {
+	stroke: var(--primary);
+}
+
+.cart__top {
+	animation-name: cartTop;
+}
+
+.cart__wheel1 {
+	animation-name: cartWheel1;
+	transform: rotate(-0.25turn);
+	transform-origin: 43px 111px;
+}
+
+.cart__wheel2 {
+	animation-name: cartWheel2;
+	transform: rotate(0.25turn);
+	transform-origin: 102px 111px;
+}
+
+.cart__wheel-stroke {
+	animation-name: cartWheelStroke;
+}
+
+.cart__track {
+	stroke: hsla(var(--hue),10%,10%,0.1);
+	transition: stroke var(--trans-dur);
 }
 
 
-body::-webkit-scrollbar {
-  width: 0.6rem;
+/* Keyframes for path and wheel drawing */
+@keyframes cartLines {
+	from,
+	to {
+		opacity: 0;
+	}
+	8%,
+	92% {
+		opacity: 1;
+	}
 }
 
-body::-webkit-scrollbar-track {
-  background: transparent;
-  border-radius: 200vh;
+@keyframes cartTop {
+	from {
+		stroke-dashoffset: -338;
+	}
+	50% {
+		stroke-dashoffset: 0;
+	}
+	to {
+		stroke-dashoffset: 338;
+	}
 }
 
-body::-webkit-scrollbar-thumb {
-background: linear-gradient(135deg, #ec09ec ,#dbef83);
-  border-radius: 10px;
+@keyframes cartWheel1 {
+	from {
+		transform: rotate(-0.25turn);
+	}
+	to {
+		transform: rotate(2.75turn);
+	}
 }
 
-.hidden {
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transition: opacity 0.5s ease;
+@keyframes cartWheel2 {
+	from {
+		transform: rotate(0.25turn);
+	}
+	to {
+		transform: rotate(3.25turn);
+	}
 }
 
+@keyframes cartWheelStroke {
+	from,
+	to {
+		stroke-dashoffset: 81.68;
+	}
+	50% {
+		stroke-dashoffset: 40.84;
+	}
+}
+
+/* Fade-out animation for hiding loader */
+.fade-out {
+  animation: fadeOut 0.1s ease forwards;
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+
+/* login */
+.nav-btn-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.nav-btn {
+  background: white;
+  padding: 8px 16px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+  color: black;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-btn:hover + .login-dropdown,
+.login-dropdown:hover {
+  display: block;
+}
+
+.login-dropdown {
+  display: none;
+  position: absolute;
+  top: 110%;
+  right: 0;
+  background: white;
+  border: 1px solid #ccc;
+  width: 250px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  border-radius: 4px;
+}
+
+.login-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 16px;
+  font-size: 14px;
+  border-bottom: 1px solid #eed519;
+}
+
+.login-header a {
+  color: #237eed;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.login-menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.login-menu li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.login-menu li:hover {
+  background-color: #f5f5f5;
+}
+
+.login-menu img {
+  width: 20px;
+  height: 20px;
+}
 
 /* Header */
 .header {

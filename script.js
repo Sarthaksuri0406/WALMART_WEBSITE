@@ -3,6 +3,14 @@ const totalSlides = 5;
 const slidesContainer = document.getElementById('carouselSlides');
 const dots = document.querySelectorAll('.dot');
 
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      const loader = document.getElementById('loader');
+      if (loader) loader.classList.add('fade-out');
+    }, 2000); // adjust delay as needed
+  });
+
+
 window.addEventListener('load', function() {
     const loader = document.getElementById('loader');
     loader.classList.add('hidden');

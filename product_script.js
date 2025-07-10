@@ -208,7 +208,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // Simulated reply — replace with RAG/AI backend call later
                 setTimeout(() => {
-                    addMessage("Walmart Bot", `📦 Working on your query about this product: "${userMsg}"`);
+                    addMessage("Wally", `📦 Working on your query about this product: "${userMsg}"`);
                 }, 1000);
             }
         });
@@ -223,8 +223,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-
-// Example function to update buttons with the correct product ID
+// cart
 function updateActionButtons(productId) {
     const addToCartBtn = document.querySelector('.action-buttons .btn-cart');
     const buyNowBtn = document.querySelector('.action-buttons .btn-buy');

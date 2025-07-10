@@ -10,21 +10,35 @@
     <!-- Header -->
     <header class="header">
         <div class="header-content">
-            <a href="index.html" class="logo">
-                <div class="logo-icon"><img src="Images/logo.png" alt="" style="width: 30px; height: auto;"></div>
-                WALMART
+            <a href="index.html" class="logo" style="text-decoration: none; color: inherit;">
+                <div class="logo-icon"><img src="Images/logo.png" alt="" style="width: 30px; height: auto;"></div>WALMART
             </a>
             <div class="search-bar">
                 <input type="text" class="search-box" placeholder="Search for products, brands and more" id="searchInput">
                 <button class="search-btn" onclick="performSearch()">🔍</button>
             </div>
             <div class="header-actions">
-                <div class="nav-item">
-                  <a href="#" class="nav-btn">
-                    <img src="Images/profile-52e0dc.svg" alt="Profile"> Login
-                  </a>
-                  <div class="popup-tooltip">Sign in to your account</div>
-                </div>
+                <div class="nav-buttons">
+                <div class="nav-btn-wrapper">
+                    <a href="#" class="nav-btn"> <!-- Login button -->
+                        <img src="Images/profile-52e0dc.svg" alt="Profile Icon"> Login
+                    </a>
+
+                    <div class="login-dropdown">
+                        <div class="login-header">
+                        <span>New customer?</span>
+                        <a href="#">Sign Up</a>
+                        </div>
+                        <ul class="login-menu">
+                        <li><img src="Images/circle-user-regular.svg"> My Profile</li>
+                        <li><img src="Images/calendar-solid.svg"> Loyalty Checkpoints</li>
+                        <li><img src="Images/truck-solid.svg"> Orders</li>
+                        <li><img src="Images/heart-solid.svg"> Wishlist</li>
+                        <li><img src="Images/award-solid.svg"> Rewards</li>
+                        <li><img src="Images/gift-solid.svg"> Gift Cards</li>
+                        </ul>
+                    </div>
+                    </div>
               
                 <div class="nav-item">
                   <a href="#" class="nav-btn">
@@ -126,7 +140,7 @@
 
                 <div class="delivery-section" id="deliverySection">
                     <div class="delivery-info">
-                        <span>🚚</span>
+                        <img src="Images/truck-solid.svg" style="width: 20px;height: auto;">
                         <span id="deliveryText">Delivery information</span>
                     </div>
                     <div class="delivery-fast" id="urgencyText"></div>
@@ -162,7 +176,6 @@
         </div>
     </div>
     <script>
-        // Paste the updateActionButtons function here
         function updateActionButtons(productId) {
           const addToCartBtn = document.querySelector('.action-buttons .btn-cart');
           const buyNowBtn = document.querySelector('.action-buttons .btn-buy');
@@ -174,24 +187,22 @@
             buyNowBtn.setAttribute('onclick', `buyNow(${productId})`);
           }
         }
-      
-        // Example: after loading product data, call the function with actual product ID
-        // Replace `1` with the real product ID variable from your code
+
         updateActionButtons(product.id);
       </script>
       <!-- Chatbot UI -->
-<div class="chatbot-toggle" id="chatbotToggle">💬</div>
+<div class="chatbot-toggle" id="chatbotToggle">
+  💬
+  <span class="chatbot-tooltip">Ask Wally about this product</span>
+</div>
+
 
 <div class="chatbot-window hidden" id="chatbotWindow">
-  <div class="chatbot-header">Ask Walmart 🤖</div>
+  <div class="chatbot-header">Ask Wally <img src="Product_images/chatbot_robo.webp" style="width: 70px;height: auto;"></div>
   <div class="chatbot-body" id="chatbotMessages"></div>
   <input type="text" id="chatInput" placeholder="Ask something..." />
 </div>
 
 <script src="product_script.js"></script>
-</body>
-</html>
-
-    <script src="product_script.js"></script>
 </body>
 </html>
