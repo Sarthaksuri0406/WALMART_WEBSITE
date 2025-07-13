@@ -3,24 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ShopMart - Electronics & More</title>        
+    <title>Walamrt - Electronics & More</title> 
+    <link rel="stylesheet" href="searched_page.css">       
 </head>
 <body>
     <header class="header">
-        <div class="header-content">
-            <div class="logo">ShopMart</div>
-            <div class="search-container">
-                <input type="text" class="search-box" placeholder="Search for products, brands and more..." id="searchInput">
-                <button class="search-btn" onclick="performSearch()">🔍</button>
+    <div class="header-container">
+        <a href="index.html" class="logo">
+            <div class="logo-icon">
+                <img src="Images/logo.png" alt="Walmart Logo" style="width: 30px; height: auto;">
             </div>
-            <div class="header-actions">
-                <a href="#" style="color: white; text-decoration: none;">Login</a>
-                <a href="#" style="color: white; text-decoration: none;">Become a Seller</a>
-                <a href="#" style="color: white; text-decoration: none;">More</a>
-                <a href="#" style="color: white; text-decoration: none;">🛒 Cart</a>
+            WALMART
+        </a>
+
+        <div class="search-container">
+            <input
+                type="text"
+                class="search-box"
+                id="searchInput"
+                placeholder="Search for products, brands and more"
+                onkeyup="handleSearch(event)"
+            />
+            <button class="search-btn" onclick="performSearch()">🔍</button>
+        </div>
+
+        <div class="nav-buttons">
+            <!-- Login Button with Dropdown -->
+            <div class="nav-btn-wrapper">
+                <a href="#" class="nav-btn">
+                    <img src="Images/profile-52e0dc.svg" alt="Profile Icon"> Login
+                </a>
+                <div class="login-dropdown">
+                    <div class="login-header">
+                        <span>New customer?</span>
+                        <a href="#">Sign Up</a>
+                    </div>
+                    <ul class="login-menu">
+                        <li><img src="Images/circle-user-regular.svg"> My Profile</li>
+                        <li><img src="Images/calendar-solid.svg"> Loyalty Checkpoints</li>
+                        <li><img src="Images/truck-solid.svg"> Orders</li>
+                        <li><img src="Images/heart-solid.svg"> Wishlist</li>
+                        <li><img src="Images/award-solid.svg"> Rewards</li>
+                        <li><img src="Images/gift-solid.svg"> Gift Cards</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Seller Button -->
+            <div class="nav-btn-wrapper">
+                <a href="#" class="nav-btn">
+                    <img src="Images/Store-9eeae2.svg" alt="Store Icon"> Seller
+                </a>
+                <div class="popup-tooltip">Become a Seller</div>
+            </div>
+
+            <!-- Cart Button -->
+            <div class="nav-btn-wrapper">
+                <a href="#" class="nav-btn" onclick="toggleCart()">
+                    <img src="Images/header_cart-eed150.svg" alt="Cart Icon"> Cart
+                    <span class="cart-badge" id="cartBadge">0</span>
+                </a>
+                <div class="popup-tooltip">View your shopping cart</div>
+            </div>
+
+            <!-- More Options -->
+            <div class="nav-btn-wrapper">
+                <a href="#" class="nav-btn">
+                    <img src="Images/header_3verticalDots-ea7819.svg" alt="More Options">
+                </a>
+                <div class="popup-tooltip">More options</div>
             </div>
         </div>
-    </header>
+    </div>
+</header>
+
+
 
     <nav class="nav-menu">
         <div class="nav-content">
@@ -130,7 +187,8 @@
                 <!-- Products will be populated by JavaScript -->
             </div>
         </main>
+        
     </div>
-    
+    <script src="searched_page.js"></script>
 </body>
 </html>

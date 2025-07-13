@@ -223,6 +223,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+
 // cart
 function updateActionButtons(productId) {
     const addToCartBtn = document.querySelector('.action-buttons .btn-cart');

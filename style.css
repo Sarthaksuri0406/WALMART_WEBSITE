@@ -311,37 +311,42 @@ body {
 }
 
 .search-container {
-  flex: 1;
-  max-width: 564px;
-  margin: 0 12px;
-  position: relative;
-  color: black;
+    flex: 1;
+    max-width: 500px;
+    margin: 0 30px;
+    position: relative;
 }
 
 .search-box {
-  width: 100%;
-  background: hsl(206, 70%, 94%);
-  padding: 10px 44px 10px 16px;
-  border: none;
-  border-radius: 2px;
-  font-size: 14px;
-  color: black;
-  outline: none;
+    width: 100%;
+    padding: 12px 50px 12px 20px;
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    font-size: 16px;
+    outline: none;
+    background: #f7f8fa;
+}
+
+.search-box:focus {
+    border-color: #0071ce;
+    background: white;
 }
 
 .search-btn {
-  position: absolute;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  width: 44px;
-  background: hsl(206, 70%, 94%);
-  border: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: black;
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    color: #666;
+    font-size: 18px;
+}
+
+.search-btn:hover {
+    color: #0071ce;
 }
 
 /* sliding window css */
