@@ -398,3 +398,110 @@ document.addEventListener('DOMContentLoaded', function() {
 document.addEventListener('DOMContentLoaded', function() {
     renderProducts();
 });
+
+
+// floating board
+
+const board = document.getElementById('floatingBoard');
+const closeBtn = document.getElementById('closeBtn');
+const positionIndicator = document.getElementById('positionIndicator');
+let isDragging = false;
+let startX = 0;
+let startY = 0;
+let boardX = 50;
+let boardY = 50;
+
+function getQueryParam(name) {
+    const params = new URLSearchParams(window.location.search);
+    return params.get(name);
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const query = getQueryParam('q');
+    const boardTitle = document.getElementById('boardTitle');
+    if (query && boardTitle) {
+      boardTitle.textContent = decodeURIComponent(query);
+    }
+  });
+
+        // Close button functionality
+        closeBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            board.style.transform = 'scale(0) rotate(180deg)';
+            board.style.opacity = '0';
+            
+            setTimeout(() => {
+                board.style.display = 'none';
+            }, 300);
+        });
+
+        function updatePosition() {
+            board.style.left = boardX + 'px';
+            board.style.top = boardY + 'px';
+            positionIndicator.textContent = `X: ${Math.round(boardX)}, Y: ${Math.round(boardY)}`;
+        }
+
+        function startDrag(e) {
+            isDragging = true;
+            board.classList.add('dragging');
+            positionIndicator.classList.add('show');
+            
+            const rect = board.getBoundingClientRect();
+            startX = (e.clientX || e.touches[0].clientX) - rect.left;
+            startY = (e.clientY || e.touches[0].clientY) - rect.top;
+            
+            document.addEventListener('mousemove', drag);
+            document.addEventListener('mouseup', stopDrag);
+            document.addEventListener('touchmove', drag);
+            document.addEventListener('touchend', stopDrag);
+            
+            e.preventDefault();
+        }
+
+        function drag(e) {
+            if (!isDragging) return;
+            
+            const clientX = e.clientX || e.touches[0].clientX;
+            const clientY = e.clientY || e.touches[0].clientY;
+            
+            boardX = clientX - startX;
+            boardY = clientY - startY;
+            
+            // Keep board within viewport bounds
+            const maxX = window.innerWidth - board.offsetWidth;
+            const maxY = window.innerHeight - board.offsetHeight;
+            
+            boardX = Math.max(0, Math.min(boardX, maxX));
+            boardY = Math.max(0, Math.min(boardY, maxY));
+            
+            updatePosition();
+            e.preventDefault();
+        }
+
+        function stopDrag() {
+            isDragging = false;
+            board.classList.remove('dragging');
+            
+            setTimeout(() => {
+                positionIndicator.classList.remove('show');
+            }, 2000);
+            
+            document.removeEventListener('mousemove', drag);
+            document.removeEventListener('mouseup', stopDrag);
+            document.removeEventListener('touchmove', drag);
+            document.removeEventListener('touchend', stopDrag);
+        }
+
+        // Mouse events
+        board.addEventListener('mousedown', startDrag);
+        
+        // Touch events for mobile
+        board.addEventListener('touchstart', startDrag);
+        
+        // Prevent text selection while dragging
+        board.addEventListener('selectstart', e => {
+            if (isDragging) e.preventDefault();
+        });
+
+        // Initialize position
+        updatePosition();
