@@ -236,7 +236,7 @@ function updateActionButtons(productId) {
       buyNowBtn.setAttribute('onclick', `buyNow(${productId})`);
     }
   }
-  
+
   function addToCart(productId) {
     const product = products.find(p => p.id === productId);
     if (!product) {
@@ -256,6 +256,47 @@ function updateActionButtons(productId) {
 
     updateCartUI();
     saveCartToStorage?.();
+}
+
+  function addToCart2(productId) {
+    return function() {
+        // Convert productId to number for comparison
+        const numericProductId = parseInt(productId, 10);
+        console.log(`Adding product ${numericProductId} to cart with discount`);
+        
+        const product = products.find(p => p.id === numericProductId);
+        if (!product) {
+            console.warn('Product not found for ID:', numericProductId);
+            return;
+        }
+
+        const existingItem = cart.find(item => item.id === numericProductId);
+
+        if (existingItem) {
+            existingItem.quantity += 1;
+            console.log(`Increased quantity of ${product.title} to ${existingItem.quantity}`);
+        } else {
+            // Add product with 10% discount applied
+            const discountedProduct = { 
+                ...product, 
+                quantity: 1,
+                originalPrice: product.price,
+                price: product.price * 0.9, // Apply 10% discount
+                hasDiscount: true
+            };
+            cart.push(discountedProduct);
+            console.log(`Added new product to cart with discount: ${product.title}`);
+        }
+
+        updateCartUI2();
+        saveCartToStorage?.();
+        
+        // Apply discount to UI
+        applyDiscount();
+        
+        // Show success message with product ID
+        showSuccessMessage(numericProductId);
+    };
 }
 function saveCartToStorage() {
     localStorage.setItem('cart', JSON.stringify(cart));
@@ -305,7 +346,10 @@ window.onload = function () {
                 const cartItem = document.createElement('div');
                 cartItem.className = 'cart-item';
                 cartItem.innerHTML = `
-                    <div class="cart-item-image">${item.icon}</div>
+                    <div class="cart-item-image">
+                        <img src="${item.images[0]}" alt="${item.title}" class="product-image" />
+                    </div>
+
                     <div class="cart-item-info">
                         <div class="cart-item-title">${item.title.substring(0, 50)}...</div>
                         <div class="cart-item-price">₹${item.price.toLocaleString()}</div>
@@ -326,6 +370,64 @@ window.onload = function () {
     const subtotalAmount = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
     if (subtotal) subtotal.textContent = `₹${subtotalAmount.toLocaleString()}`;
     if (total) total.textContent = `₹${subtotalAmount.toLocaleString()}`;
+  }
+
+  function updateCartUI2() {
+    const cartBadge = document.getElementById('cartBadge');
+    const cartItems = document.getElementById('cartItems');
+    const subtotal = document.getElementById('subtotal');
+    const total = document.getElementById('total');
+  
+    if (!cartBadge) return;
+  
+    // Update cart badge
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    cartBadge.textContent = totalItems;
+  
+    // Update cart items
+    if (cartItems) {
+        cartItems.innerHTML = '';
+        if (cart.length === 0) {
+            cartItems.innerHTML = '<p style="text-align: center; color: #666; padding: 40px;">Your cart is empty</p>';
+        } else {
+            cart.forEach(item => {
+  const cartItem = document.createElement('div');
+  cartItem.className = 'cart-item';
+
+  const discounted = item.price * 0.9;
+
+        cartItem.innerHTML = `
+            <div class="cart-item-image">
+            <img src="${item.images[0]}" alt="${item.title}" class="product-image" />
+            </div>
+
+            <div class="cart-item-info">
+            <div class="cart-item-title">${item.title.substring(0, 50)}...</div>
+            <div class="cart-item-price">
+                <span style="text-decoration: line-through; color: #888; margin-right: 6px;">
+                ₹${item.price.toLocaleString()}
+                </span>
+                <span style="font-weight: bold; color: #e53935;">
+                ₹${discounted.toFixed(0).toLocaleString()}
+                </span>
+            </div>
+            <div class="quantity-controls">
+                <button class="qty-btn" onclick="updateQuantity(${item.id}, -1)">-</button>
+                <span style="margin: 0 8px;">${item.quantity}</span>
+                <button class="qty-btn" onclick="updateQuantity(${item.id}, 1)">+</button>
+                <button class="qty-btn" onclick="removeFromCart(${item.id})" style="margin-left: 8px; color: red;">🗑</button>
+            </div>
+            </div>
+        `;
+        cartItems.appendChild(cartItem);
+        });
+
+        }
+    }
+    const subtotalAmount = cart.reduce((sum, item) => sum + (item.price * 0.9 * item.quantity), 0);
+    subtotal.textContent = `₹${subtotalAmount.toFixed(0).toLocaleString()}`;
+    total.textContent = `₹${subtotalAmount.toFixed(0).toLocaleString()}`;
+
   }
   
   // Update item quantity in cart
@@ -367,6 +469,142 @@ function buyNow() {
     alert(`Proceeding to buy "${window.currentProduct.title}" for ₹${window.currentProduct.price.toLocaleString()}`);
     // Here you would integrate with your checkout system
 }
+
+//pop-up
+        let popupTimer;
+        let countdownTimer;
+        let timeLeft = 600; // 10 minutes in seconds
+        let popupShown = false;
+        
+        // Function to get product ID from URL
+        function getProductIdFromUrl() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('id');
+        }
+        
+        function showSuccessMessage(productId) {
+            const successMsg = document.createElement('div');
+            successMsg.innerHTML = `✓ Product ${productId} added to cart with 10% discount!`;
+            successMsg.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: #27ae60;
+                color: white;
+                padding: 15px 25px;
+                border-radius: 8px;
+                font-weight: bold;
+                z-index: 1001;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            `;
+            document.body.appendChild(successMsg);
+            
+            setTimeout(() => {
+                successMsg.remove();
+            }, 3000);
+        }
+        
+        // Get product ID on page load
+        const productId = getProductIdFromUrl();
+
+        // Show popup after 45 seconds
+        setTimeout(() => {
+            if (!popupShown) {
+                showPopup();
+            }
+        }, 2000);
+
+        function showPopup() {
+            popupShown = true;
+            const popup = document.getElementById('discountPopup');
+            popup.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            
+            // Start countdown timer
+            startCountdown();
+        }
+
+        function hidePopup() {
+            const popup = document.getElementById('discountPopup');
+            popup.classList.remove('active');
+            document.body.style.overflow = 'auto';
+            
+            // Clear countdown timer
+            if (countdownTimer) {
+                clearInterval(countdownTimer);
+            }
+        }
+
+        function startCountdown() {
+            const timerElement = document.getElementById('timer');
+            
+            countdownTimer = setInterval(() => {
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                
+                timerElement.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(countdownTimer);
+                    hidePopup();
+                    alert('Offer expired!');
+                }
+                
+                timeLeft--;
+            }, 1000);
+        }
+
+        function applyDiscount() {
+            // Update price display
+            const priceElement = document.querySelector('.price');
+            const buyButton = document.querySelector('.buy-btn');
+            
+            // Calculate new price (10% off original $179.99)
+            const newPrice = (179.99 * 0.9).toFixed(2);
+            
+            priceElement.innerHTML = `
+                <span class="original-price">$179.99</span>
+                ${newPrice}
+            `;
+            
+            buyButton.textContent = `Add to Cart - ${newPrice}`;
+            buyButton.style.background = 'linear-gradient(135deg, #27ae60 0%, #229954 100%)';
+            
+            hidePopup();
+        }
+
+
+        // Close popup when clicking outside
+        document.getElementById('discountPopup').addEventListener('click', (e) => {
+            if (e.target === e.currentTarget) {
+                hidePopup();
+            }
+        });
+
+        // Prevent popup from showing again if user dismissed it
+        document.getElementById('dismissPopup').addEventListener('click', () => {
+            popupShown = true;
+        });
+
+        // Event listeners
+        document.getElementById('closePopup').addEventListener('click', hidePopup);
+        document.getElementById('dismissPopup').addEventListener('click', hidePopup);
+        document.getElementById('claimDiscount').addEventListener('click', addToCart2(productId));
+        document.getElementById('claimDiscount').addEventListener('click', applyDiscount);
+        document.getElementById('claimDiscount').addEventListener('click', hidePopup);
+        // document.getElementById('claimDiscount').addEventListener('click', toggleCart());
+
+        // Close popup when clicking outside
+        document.getElementById('discountPopup').addEventListener('click', (e) => {
+            if (e.target === e.currentTarget) {
+                hidePopup();
+            }
+        });
+
+        // Prevent popup from showing again if user dismissed it
+        document.getElementById('dismissPopup').addEventListener('click', () => {
+            popupShown = true;
+        });
 
 // Product page functionality
 function updateImages(images = [], style = '') {

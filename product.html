@@ -175,6 +175,20 @@
             </div>
         </div>
     </div>
+
+    <div class="popup-overlay" id="discountPopup">
+        <div class="popup">
+            <span class="popup-close" id="closePopup">&times;</span>
+            <div class="discount-badge">Limited Time Offer!</div>
+            <h2>10% OFF</h2>
+            <p>Don't miss out! Get an exclusive 10% discount on this product.</p>
+            <div class="timer" id="timer">10:00</div>
+            <button class="popup-btn" id="claimDiscount">Claim Discount</button>
+            <button class="popup-btn secondary" id="dismissPopup">Maybe Later</button>
+        </div>
+    </div>
+
+
     <script>
         function updateActionButtons(productId) {
           const addToCartBtn = document.querySelector('.action-buttons .btn-cart');
