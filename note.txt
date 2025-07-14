@@ -1,138 +1,20 @@
-const board = document.getElementById('floatingBoard');
-        const closeBtn = document.getElementById('closeBtn');
-        const positionIndicator = document.getElementById('positionIndicator');
-        let isDragging = false;
-        let startX = 0;
-        let startY = 0;
-        let boardX = 50;
-        let boardY = 50;
+chatInput.addEventListener("keypress", (e) => {
+    if (e.key === "Enter" && chatInput.value.trim() !== "") {
+        const userMsg = chatInput.value.trim();
+        addMessage("You", userMsg);
+        chatInput.value = "";
 
-        // Close button functionality
-        closeBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            board.style.transform = 'scale(0) rotate(180deg)';
-            board.style.opacity = '0';
-            
-            setTimeout(() => {
-                board.style.display = 'none';
-            }, 300);
-        });
+        // Simulated reply — replace with RAG/AI backend call later
+        setTimeout(() => {
+            addMessage("Wally", `📦 Working on your query about this product: "${userMsg}"`);
+        }, 1000);
+    }
+});
 
-
-<body>
-    <div class="floating-board" id="floatingBoard">
-        <div class="board-header">
-            <h3 class="board-title" id="boardTitle">Floating Board</h3>
-            <div class="header-controls">
-                <div class="drag-handle" id="dragHandle"></div>
-                <button class="close-btn" id="closeBtn" title="Close board"></button>
-            </div>
-        </div>
-        <div class="board-content">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        </div>
-    </div>
-
-    <div class="position-indicator" id="positionIndicator">
-        X: 0, Y: 0
-    </div>
-
-    <div class="instructions">
-        💡 Click and drag the board to move it around!<br>
-        🎯 Position updates in real-time
-    </div>
-
-    <script>
-        const board = document.getElementById('floatingBoard');
-        const closeBtn = document.getElementById('closeBtn');
-        const positionIndicator = document.getElementById('positionIndicator');
-        let isDragging = false;
-        let startX = 0;
-        let startY = 0;
-        let boardX = 50;
-        let boardY = 50;
-
-        // Close button functionality
-        closeBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            board.style.transform = 'scale(0) rotate(180deg)';
-            board.style.opacity = '0';
-            
-            setTimeout(() => {
-                board.style.display = 'none';
-            }, 300);
-        });
-
-        function updatePosition() {
-            board.style.left = boardX + 'px';
-            board.style.top = boardY + 'px';
-            positionIndicator.textContent = `X: ${Math.round(boardX)}, Y: ${Math.round(boardY)}`;
-        }
-
-        function startDrag(e) {
-            isDragging = true;
-            board.classList.add('dragging');
-            positionIndicator.classList.add('show');
-            
-            const rect = board.getBoundingClientRect();
-            startX = (e.clientX || e.touches[0].clientX) - rect.left;
-            startY = (e.clientY || e.touches[0].clientY) - rect.top;
-            
-            document.addEventListener('mousemove', drag);
-            document.addEventListener('mouseup', stopDrag);
-            document.addEventListener('touchmove', drag);
-            document.addEventListener('touchend', stopDrag);
-            
-            e.preventDefault();
-        }
-
-        function drag(e) {
-            if (!isDragging) return;
-            
-            const clientX = e.clientX || e.touches[0].clientX;
-            const clientY = e.clientY || e.touches[0].clientY;
-            
-            boardX = clientX - startX;
-            boardY = clientY - startY;
-            
-            // Keep board within viewport bounds
-            const maxX = window.innerWidth - board.offsetWidth;
-            const maxY = window.innerHeight - board.offsetHeight;
-            
-            boardX = Math.max(0, Math.min(boardX, maxX));
-            boardY = Math.max(0, Math.min(boardY, maxY));
-            
-            updatePosition();
-            e.preventDefault();
-        }
-
-        function stopDrag() {
-            isDragging = false;
-            board.classList.remove('dragging');
-            
-            setTimeout(() => {
-                positionIndicator.classList.remove('show');
-            }, 2000);
-            
-            document.removeEventListener('mousemove', drag);
-            document.removeEventListener('mouseup', stopDrag);
-            document.removeEventListener('touchmove', drag);
-            document.removeEventListener('touchend', stopDrag);
-        }
-
-        // Mouse events
-        board.addEventListener('mousedown', startDrag);
-        
-        // Touch events for mobile
-        board.addEventListener('touchstart', startDrag);
-        
-        // Prevent text selection while dragging
-        board.addEventListener('selectstart', e => {
-            if (isDragging) e.preventDefault();
-        });
-
-        // Initialize position
-        updatePosition();
-    </script>
-</body>
-</html>
+function addMessage(sender, message) {
+    const msgDiv = document.createElement("div");
+    msgDiv.classList.add("chatbot-message", sender === "You" ? "user" : "bot");
+    msgDiv.innerHTML = `<strong>${sender}:</strong> ${message}`;
+    chatbotMessages.appendChild(msgDiv);
+    chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+}

@@ -206,24 +206,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Handle input
     chatInput.addEventListener("keypress", (e) => {
-            if (e.key === "Enter" && chatInput.value.trim() !== "") {
-                const userMsg = chatInput.value.trim();
-                addMessage("You", userMsg);
-                chatInput.value = "";
+    if (e.key === "Enter" && chatInput.value.trim() !== "") {
+        const userMsg = chatInput.value.trim();
+        addMessage("You", userMsg);
+        chatInput.value = "";
 
-                // Simulated reply — replace with RAG/AI backend call later
-                setTimeout(() => {
-                    addMessage("Wally", `📦 Working on your query about this product: "${userMsg}"`);
-                }, 1000);
+        // Fixed reply for all inputs
+        const fixedReply = "The Apple MacBook Air with M2 chip is designed primarily for everyday tasks and students, not specifically for gaming. While it has a powerful processor and graphics capabilities, it may not be able to handle the demands of high-end gaming applications. If gaming is a priority for you, it might be worth considering other options with more dedicated graphics cards and higher performance specifications.";
+
+        setTimeout(() => {
+            addMessage("Wally", fixedReply);
+        }, 1000);
             }
+        });
+
         function addMessage(sender, message) {
-        const msgDiv = document.createElement("div");
-        msgDiv.classList.add("chat-message");
-        msgDiv.innerHTML = `<strong>${sender}:</strong> ${message}`;
-        chatbotMessages.appendChild(msgDiv);
-        chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
-    }
-    });
+            const msgDiv = document.createElement("div");
+            msgDiv.classList.add("chatbot-message", sender === "You" ? "user" : "bot");
+            msgDiv.innerHTML = `<strong>${sender}:</strong> ${message}`;
+            chatbotMessages.appendChild(msgDiv);
+            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+        }
 
 
 // cart

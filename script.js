@@ -259,7 +259,6 @@ const products = [
 function goToSearchPage() {
     const query = document.getElementById("searchInput").value.trim();
     if (query !== "") {
-      // Encode and pass query to searched_page.html
       window.location.href = `searched_page.html?q=${encodeURIComponent(query)}`;
     }
   }
