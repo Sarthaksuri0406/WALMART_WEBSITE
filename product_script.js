@@ -188,19 +188,24 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
   
-// Chatbot functionality
-  document.addEventListener("DOMContentLoaded", () => {
-    const chatbotToggle = document.getElementById("chatbotToggle");
-    const chatbotWindow = document.getElementById("chatbotWindow");
-    const chatInput = document.getElementById("chatInput");
-    const chatbotMessages = document.getElementById("chatbotMessages");
+    const chatbotToggle = document.getElementById('chatbotToggle');
+    const chatbotWindow = document.getElementById('chatbotWindow');
+    const chatInput = document.getElementById('chatInput');
 
-    if (chatbotToggle && chatbotWindow) {
-        chatbotToggle.addEventListener("click", () => {
-            chatbotWindow.classList.toggle("hidden");
-        });
+    chatbotToggle.addEventListener('click', () => {
+        chatbotWindow.classList.toggle('hidden');
+        if (!chatbotWindow.classList.contains('hidden')) {
+            setTimeout(() => {
+                chatbotWindow.classList.add('show');
+                chatInput.focus();
+            }, 10);
+        } else {
+            chatbotWindow.classList.remove('show');
+        }
+    });
 
-        chatInput.addEventListener("keypress", (e) => {
+    // Handle input
+    chatInput.addEventListener("keypress", (e) => {
             if (e.key === "Enter" && chatInput.value.trim() !== "") {
                 const userMsg = chatInput.value.trim();
                 addMessage("You", userMsg);
@@ -211,17 +216,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     addMessage("Wally", `📦 Working on your query about this product: "${userMsg}"`);
                 }, 1000);
             }
-        });
-
         function addMessage(sender, message) {
-            const msgDiv = document.createElement("div");
-            msgDiv.classList.add("chat-message");
-            msgDiv.innerHTML = `<strong>${sender}:</strong> ${message}`;
-            chatbotMessages.appendChild(msgDiv);
-            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
-        }
+        const msgDiv = document.createElement("div");
+        msgDiv.classList.add("chat-message");
+        msgDiv.innerHTML = `<strong>${sender}:</strong> ${message}`;
+        chatbotMessages.appendChild(msgDiv);
+        chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
     }
-});
+    });
 
 
 // cart
@@ -512,7 +514,7 @@ function buyNow() {
             if (!popupShown) {
                 showPopup();
             }
-        }, 2000);
+        }, 45000);
 
         function showPopup() {
             popupShown = true;

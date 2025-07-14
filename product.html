@@ -205,17 +205,30 @@
         updateActionButtons(product.id);
       </script>
       <!-- Chatbot UI -->
-<div class="chatbot-toggle" id="chatbotToggle">
-  💬
-  <span class="chatbot-tooltip">Ask Wally about this product</span>
-</div>
+        <div class="chatbot-toggle" id="chatbotToggle">
+                💬
+                <span class="chatbot-tooltip">Ask Wally about this product</span>
+        </div>
 
-
-<div class="chatbot-window hidden" id="chatbotWindow">
-  <div class="chatbot-header">Ask Wally <img src="Product_images/chatbot_robo.webp" style="width: 70px;height: auto;"></div>
-  <div class="chatbot-body" id="chatbotMessages"></div>
-  <input type="text" id="chatInput" placeholder="Ask something..." />
-</div>
+            <!-- Chat Window -->
+        <div class="chatbot-window hidden" id="chatbotWindow">
+            <div class="chatbot-header">
+                <img src="Product_images/chatbot_robo.webp" alt="Wally Avatar" class="chatbot-avatar">
+                <div class="chatbot-title">
+                    <div>Ask Wally</div>
+                    <div class="chatbot-status">
+                        <div class="status-indicator"></div>
+                        Online
+                    </div>
+                </div>
+            </div>
+            <div class="chatbot-body" id="chatbotMessages">
+                <div class="welcome-message">
+                    👋 Hi there! I'm Wally, your AI assistant. Ask me anything about our products!
+                </div>
+            </div>
+            <input type="text" id="chatInput" placeholder="Type your message..." />
+        </div>
 
 <script src="product_script.js"></script>
 </body>
